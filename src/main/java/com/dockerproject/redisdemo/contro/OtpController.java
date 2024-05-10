@@ -19,8 +19,8 @@ public class OtpController {
 	@PostMapping("/send-otp")
     public String sendOtp(@RequestBody OtpRequestDTO otpRequestDTO)
 	{
-        otpService.sendOtp(otpRequestDTO);
-        return "OTP sent successfully";
+       otpService.sendOtp(otpRequestDTO);
+       return "OTP sent successfully";
     }
 
 }

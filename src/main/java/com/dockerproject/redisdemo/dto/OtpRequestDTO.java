@@ -6,12 +6,23 @@ import lombok.Data;
 	public class OtpRequestDTO {
 	    private String emailId;
 	    private String otp;
-	    
+		private String userName;
+		
+		
+
 	    //Getters and setters
 	    
+		public String getUserName() 
+		{
+			return userName;
+		}
+		public void setUserName(String userName)
+		{
+			this.userName = userName;
+		}
 		public String getEmailId()
 		{
-			return emailId;
+			return emailId;      
 		}
 		public void setEmailId(String emailId) 
 		{
