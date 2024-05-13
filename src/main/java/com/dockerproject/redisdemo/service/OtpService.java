@@ -1,4 +1,5 @@
 package com.dockerproject.redisdemo.service;
+import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -6,9 +7,6 @@ import org.springframework.stereotype.Service;
 import com.dockerproject.redisdemo.dto.OtpRequestDTO;
 import com.dockerproject.redisdemo.entity.OtpEntity;
 import com.dockerproject.redisdemo.repo.OtpRepo;
-
-
-
 
 @Service
 public class OtpService {
@@ -48,5 +46,16 @@ public class OtpService {
         int otp = random.nextInt(900000) + 100000;
         return String.valueOf(otp);
     }
+	
+	public List <OtpEntity> getAllOtp(){
+		return otpRepo.findAll();
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 }

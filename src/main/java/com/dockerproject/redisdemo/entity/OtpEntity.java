@@ -7,7 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-
+import lombok.Getter;
+import lombok.Setter;
+ @Getter
+ @Setter
  @Entity
  @Data
  @Table(name="otp_seq")
@@ -32,8 +35,47 @@ import lombok.Data;
 		   this.otp =otp2;
 	}
 
-	public void save(OtpEntity otpEntity) {
-		// TODO Auto-generated method stub
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUserName()
+	{
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getEmailId(){
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+
+	public OtpEntity()
+	{
+	
+    }
+	
+	public String  save(OtpEntity otpEntity) {
+		
+		return  null ;
 		
 	}
 }
