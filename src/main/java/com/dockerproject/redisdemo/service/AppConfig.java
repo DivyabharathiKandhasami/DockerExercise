@@ -9,24 +9,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "com.dockerproject.redisdemo.repo")
 @PropertySource("classpath:application.properties")
 public class AppConfig {
-	
-	
- @Bean
- public OtpService otpService()
- {
- return new OtpService();
-    }
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
+	@Bean
+	public OtpService otpService() {
+		return new OtpService();
+	}
+
 }

@@ -9,30 +9,31 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
- @Getter
- @Setter
- @Entity
- @Data
- @Table(name="otp_seq")
- public class OtpEntity{
+
+@Getter
+@Setter
+@Entity
+@Data
+@Table(name = "otp_seq")
+public class OtpEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	@Column(name = "id")
 	private Long id;
-	
+
 	@Column(name = "user_name")
 	private String userName;
-	
+
 	@Column(name = "e_mailId")
 	private String emailId;
-	
+
 	@Column(name = "otp_pin")
 	private String otp;
 
 	public OtpEntity(String emailId2, String otp2) {
-		   this.emailId = emailId2;
-		   this.otp =otp2;
+		this.emailId = emailId2;
+		this.otp = otp2;
 	}
 
 	public Long getId() {
@@ -43,8 +44,7 @@ import lombok.Setter;
 		this.id = id;
 	}
 
-	public String getUserName()
-	{
+	public String getUserName() {
 		return userName;
 	}
 
@@ -52,7 +52,7 @@ import lombok.Setter;
 		this.userName = userName;
 	}
 
-	public String getEmailId(){
+	public String getEmailId() {
 		return emailId;
 	}
 
@@ -68,14 +68,19 @@ import lombok.Setter;
 		this.otp = otp;
 	}
 
-	public OtpEntity()
-	{
-	
-    }
-	
-	public String  save(OtpEntity otpEntity) {
-		
-		return  null ;
-		
+	public OtpEntity() {
+
+	}
+
+	public String save(OtpEntity otpEntity) {
+
+		return null;
+
+	}
+
+	public boolean isExpired() {
+		System.out.println("Your otp is expired (❁´◡`❁)");
+		return false;
+
 	}
 }

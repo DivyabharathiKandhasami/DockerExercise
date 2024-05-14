@@ -8,36 +8,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyComponent {
 	private final RedisTemplate<String, Object> redisTemplate;
-    private final ValueOperations<String, Object> valueOperations;
+	private final ValueOperations<String, Object> valueOperations;
 
-    @Autowired
-    public MyComponent(RedisTemplate<String, Object> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-        this.valueOperations = redisTemplate.opsForValue();
-    }
+	@Autowired
+	public MyComponent(RedisTemplate<String, Object> redisTemplate) {
+		this.redisTemplate = redisTemplate;
+		this.valueOperations = redisTemplate.opsForValue();
+	}
 
-    public void setValue(String key, Object value) {
-        valueOperations.set(key, value);
-    }
+	public void setValue(String key, Object value) {
+		valueOperations.set(key, value);
+	}
 
-    public Object getValue(String key) {
-        return valueOperations.get(key);
-    }
-	
-	
+	public Object getValue(String key) {
+		return valueOperations.get(key);
+	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
