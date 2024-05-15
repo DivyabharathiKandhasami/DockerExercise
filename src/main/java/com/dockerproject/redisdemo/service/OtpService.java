@@ -3,6 +3,8 @@ package com.dockerproject.redisdemo.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -30,13 +32,41 @@ public class OtpService {
 	 * redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp); return
 	 * "otpRepo is saved Successfully" ; }
 	 **/
-
+ /*
 	public void sendOtp(OtpRequestDTO otpRequestDTO) {
 		String otp = generateOtp();
 		OtpEntity otpEntity = new OtpEntity(otpRequestDTO.getEmailId(), otp);
 		otpRepo.save(otpEntity);
+		redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp, otpExpirationTime, TimeUnit.SECONDS);
+
 		redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp);
 		System.out.println("Otp saved successfully in redis");
+	}
+*/
+   public void sendOtp(OtpRequestDTO otpRequestDTO){
+    String otp = generateOtp();
+    OtpEntity otpEntity = new OtpEntity(otpRequestDTO.getEmailId(), otp);
+    otpRepo.save(otpEntity);
+    redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp, 8 * 60, TimeUnit.SECONDS);
+    System.out.println("Otp saved successfully in redis");
+}
+	 
+	 
+	
+	
+	
+	
+	
+	
+
+	// get all otp
+	public List<OtpEntity> getAllOtp() {
+		return otpRepo.findAll();
+	}
+
+	public OtpEntity update(OtpRequestDTO otpRequestDTO) {
+
+		return otpRepo.save(otpRequestDTO);
 	}
 
 	// Generate One Time Password //
@@ -45,10 +75,6 @@ public class OtpService {
 		Random random = new Random();
 		int otp = random.nextInt(900000) + 100000;
 		return String.valueOf(otp);
-	}
-
-	public List<OtpEntity> getAllOtp() {
-		return otpRepo.findAll();
 	}
 
 	// validate otp
