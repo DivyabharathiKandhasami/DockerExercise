@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dockerproject.redisdemo.dto.OtpRequestDTO;
 import com.dockerproject.redisdemo.entity.OtpEntity;
@@ -22,15 +23,25 @@ public class OtpController {
 	private OtpService otpService;
 
 	@PostMapping("/send-otp")
-	public String sendOtp(@RequestBody OtpRequestDTO OtpRequestDTO) {
+	public ModelAndView sendOtp(@RequestBody OtpRequestDTO OtpRequestDTO) {
 		otpService.sendOtp(OtpRequestDTO);
-		return "OTP sent successfully";
+		ModelAndView modelAndView = new ModelAndView("form");
+	    modelAndView.addObject("message", "OTP sent successfully");
+	    return modelAndView;
 	}
+	
 
 	@GetMapping("/getall/otp")
 	public List<OtpEntity> getAllOtp() {
 		return otpService.getAllOtp();
 	}
+	
+     //getting form 
+    @GetMapping("/form")
+    public String showForm() {
+        return "src/main/resources";
+    }
+	
 
 	@PutMapping("/update/{id}")
 	public OtpEntity update(@RequestBody OtpRequestDTO OtpRequestDTO) {

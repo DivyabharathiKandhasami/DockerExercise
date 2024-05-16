@@ -32,32 +32,23 @@ public class OtpService {
 	 * redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp); return
 	 * "otpRepo is saved Successfully" ; }
 	 **/
- /*
+	/*
+	 * public void sendOtp(OtpRequestDTO otpRequestDTO) { String otp =
+	 * generateOtp(); OtpEntity otpEntity = new
+	 * OtpEntity(otpRequestDTO.getEmailId(), otp); otpRepo.save(otpEntity);
+	 * redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp,
+	 * otpExpirationTime, TimeUnit.SECONDS);
+	 * 
+	 * redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp);
+	 * System.out.println("Otp saved successfully in redis"); }
+	 */
 	public void sendOtp(OtpRequestDTO otpRequestDTO) {
 		String otp = generateOtp();
 		OtpEntity otpEntity = new OtpEntity(otpRequestDTO.getEmailId(), otp);
 		otpRepo.save(otpEntity);
-		redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp, otpExpirationTime, TimeUnit.SECONDS);
-
-		redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp);
+		redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp, 8 * 60, TimeUnit.SECONDS);
 		System.out.println("Otp saved successfully in redis");
 	}
-*/
-   public void sendOtp(OtpRequestDTO otpRequestDTO){
-    String otp = generateOtp();
-    OtpEntity otpEntity = new OtpEntity(otpRequestDTO.getEmailId(), otp);
-    otpRepo.save(otpEntity);
-    redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp, 8 * 60, TimeUnit.SECONDS);
-    System.out.println("Otp saved successfully in redis");
-}
-	 
-	 
-	
-	
-	
-	
-	
-	
 
 	// get all otp
 	public List<OtpEntity> getAllOtp() {

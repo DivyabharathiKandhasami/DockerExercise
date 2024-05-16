@@ -1,6 +1,5 @@
 package com.dockerproject.redisdemo.repo;
 
-
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,11 +9,10 @@ import com.dockerproject.redisdemo.dto.OtpRequestDTO;
 import com.dockerproject.redisdemo.entity.OtpEntity;
 
 @Repository
-public interface OtpRepo extends JpaRepository <OtpEntity,Long> {
+public interface OtpRepo extends JpaRepository<OtpEntity, Long> {
 
-	Optional <OtpEntity> findByEmailId(String emailId);
+	Optional<OtpEntity> findByEmailId(String emailId);
 
 	OtpEntity save(OtpRequestDTO otpRequestDTO);
-    
-	  
+
 }
