@@ -33,7 +33,7 @@ public class OtpService {
 	 * "otpRepo is saved Successfully" ; }
 	 **/
 	/*
-	 * public void sendOtp(OtpRequestDTO otpRequestDTO) { String otp =
+	 * (or) public void sendOtp(OtpRequestDTO otpRequestDTO) { String otp =
 	 * generateOtp(); OtpEntity otpEntity = new
 	 * OtpEntity(otpRequestDTO.getEmailId(), otp); otpRepo.save(otpEntity);
 	 * redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp,
@@ -42,14 +42,36 @@ public class OtpService {
 	 * redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp);
 	 * System.out.println("Otp saved successfully in redis"); }
 	 */
+
+	// Normal sendOtp with Timeunits in second
+
+	/*
+	 * public void sendOtp(OtpRequestDTO otpRequestDTO) { String otp =
+	 * generateOtp(); OtpEntity otpEntity = new
+	 * OtpEntity(otpRequestDTO.getEmailId(), otp); otpRepo.save(otpEntity);
+	 * redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp, 8 * 60,
+	 * TimeUnit.SECONDS); System.out.println("Otp saved successfully in redis"); }
+	 */
+
+	// This will extract the OTP and the timestamp from the string and create an
+	// OtpEntity object with the extracted values.
+	// sendOtp with current Timestamps
+
 	public void sendOtp(OtpRequestDTO otpRequestDTO) {
-		String otp = generateOtp();
+
+		String otpString = generateOtp();
+		String[] otpParts = otpString.split("_");
+		String otp = otpParts[0];
+		long timestamp = Long.parseLong(otpParts[1]);
 		OtpEntity otpEntity = new OtpEntity(otpRequestDTO.getEmailId(), otp);
 		otpRepo.save(otpEntity);
 		redisTemplate.opsForValue().set(otpRequestDTO.getEmailId(), otp, 8 * 60, TimeUnit.SECONDS);
 		System.out.println("Otp saved successfully in redis");
 	}
 
+	
+	
+	
 	// get all otp
 	public List<OtpEntity> getAllOtp() {
 		return otpRepo.findAll();
@@ -62,40 +84,65 @@ public class OtpService {
 
 	// Generate One Time Password //
 
+	/**
+	 * private String generateOtp() { //timeinmilli Random random = new Random();
+	 * int otp = random.nextInt(900000) + 100000; return String.valueOf(otp); }
+	 **/
+
+	// current timestamp
 	private String generateOtp() {
 		Random random = new Random();
 		int otp = random.nextInt(900000) + 100000;
-		return String.valueOf(otp);
+		long currentTime = System.currentTimeMillis();
+		return otp + "_" + currentTime;
 	}
 
-	// validate otp
+	// validate otp with Time unit in seconds
+	/*
+	 * public String validate(String emailId, String otp) { // Retrieve the OTP from
+	 * the database Optional<OtpEntity> optionalOtpEntity =
+	 * otpRepo.findByEmailId(emailId); if (!optionalOtpEntity.isPresent()) { // If
+	 * the OTP entity is not present in the database, return false return
+	 * " Sorry!😁😁 Otp is not valid "; } OtpEntity otpEntity =
+	 * optionalOtpEntity.get();
+	 * 
+	 * // Check if the OTP is still valid if (otpEntity.isExpired()) { // If the OTP
+	 * is expired, delete it from the database and return false
+	 * otpRepo.delete(otpEntity); //
+	 * System.out.println(" Your otp is expired ^_^^_^"); return
+	 * "Your otp is expired ^_^^_^ "; }
+	 * 
+	 * // Compare the OTP provided by the user with the OTP in the database if
+	 * (otpEntity.getOtp().equals(otp)) { // If the OTPs match, delete the OTP
+	 * entity from the database and return true otpRepo.delete(otpEntity); return
+	 * " Your otp is verified "; } else { // If the OTPs do not match, return false
+	 * return "your otp is not verified"; }
+	 * 
+	 * }
+	 */
+
+	// validate otp with current Timestamp
 	public String validate(String emailId, String otp) {
-		// Retrieve the OTP from the database
 		Optional<OtpEntity> optionalOtpEntity = otpRepo.findByEmailId(emailId);
 		if (!optionalOtpEntity.isPresent()) {
-			// If the OTP entity is not present in the database, return false
 			return " Sorry!😁😁 Otp is not valid ";
 		}
 		OtpEntity otpEntity = optionalOtpEntity.get();
 
-		// Check if the OTP is still valid
-		if (otpEntity.isExpired()) {
-			// If the OTP is expired, delete it from the database and return false
+		long currentTime = System.currentTimeMillis();
+		long otpTimestamp = otpEntity.getTimestamp();
+
+		if (currentTime - otpTimestamp > currentTime) {
 			otpRepo.delete(otpEntity);
-			// System.out.println(" Your otp is expired ^_^^_^");
-			return "Your otp is expired ^_^^_^ ";
+			return "Your otp is expired 😒😒 ";
 		}
 
-		// Compare the OTP provided by the user with the OTP in the database
 		if (otpEntity.getOtp().equals(otp)) {
-			// If the OTPs match, delete the OTP entity from the database and return true
 			otpRepo.delete(otpEntity);
-			return " Your otp is verified ";
+			return " Your otp is verified 🎊🎊";
 		} else {
-			// If the OTPs do not match, return false
-			return "your otp is not verified";
+			return otp;
 		}
-
 	}
 
 }

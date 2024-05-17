@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Data
-@Table(name = "otp_seq")
+@Table(name = "otp_gen")
 public class OtpEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,9 +78,13 @@ public class OtpEntity {
 
 	}
 
-	public boolean isExpired() {
+	public String isExpired() {
 		System.out.println("Your otp is expired (❁´◡`❁)");
-		return false;
+		return  "Your otp is expired (❁´◡`❁)";
 
+	}
+
+	public long getTimestamp() {
+	    return System.currentTimeMillis();
 	}
 }

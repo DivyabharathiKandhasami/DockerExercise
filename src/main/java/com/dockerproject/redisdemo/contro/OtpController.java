@@ -26,22 +26,20 @@ public class OtpController {
 	public ModelAndView sendOtp(@RequestBody OtpRequestDTO OtpRequestDTO) {
 		otpService.sendOtp(OtpRequestDTO);
 		ModelAndView modelAndView = new ModelAndView("form");
-	    modelAndView.addObject("message", "OTP sent successfully");
-	    return modelAndView;
+		modelAndView.addObject("message", "OTP sent successfully");
+		return modelAndView;
 	}
-	
 
 	@GetMapping("/getall/otp")
 	public List<OtpEntity> getAllOtp() {
 		return otpService.getAllOtp();
 	}
-	
-     //getting form 
-    @GetMapping("/form")
-    public String showForm() {
-        return "src/main/resources";
-    }
-	
+
+	// getting form
+	@GetMapping("/form")
+	public String showForm() {
+		return "form";
+	}
 
 	@PutMapping("/update/{id}")
 	public OtpEntity update(@RequestBody OtpRequestDTO OtpRequestDTO) {
