@@ -78,9 +78,8 @@ public class OtpEntity {
 
 	}
 
-	public String isExpired() {
-		System.out.println("Your otp is expired (❁´◡`❁)");
-		return  "Your otp is expired (❁´◡`❁)";
+	public boolean isExpired() {
+		return  false;
 
 	}
 

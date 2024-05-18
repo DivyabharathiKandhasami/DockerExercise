@@ -7,10 +7,12 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import com.dockerproject.redisdemo.dto.OtpRequestDTO;
 import com.dockerproject.redisdemo.entity.OtpEntity;
 import com.dockerproject.redisdemo.repo.OtpRepo;
+import org.springframework.mail.SimpleMailMessage;
 
 @Service
 public class OtpService {
@@ -69,9 +71,6 @@ public class OtpService {
 		System.out.println("Otp saved successfully in redis");
 	}
 
-	
-	
-	
 	// get all otp
 	public List<OtpEntity> getAllOtp() {
 		return otpRepo.findAll();
@@ -144,5 +143,7 @@ public class OtpService {
 			return otp;
 		}
 	}
+
+	// Otp is send to the user e-mail with generated app password
 
 }
