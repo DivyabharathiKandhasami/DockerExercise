@@ -36,9 +36,8 @@ public class RedisdemoApplication {
 			+ "\n"
 			+ "Best regards,\n"
 			+ "The User Management Portal Team ");
+	
     System.out.println("otp is sent to your email successfully");
 	}
 	
-	
-
 }

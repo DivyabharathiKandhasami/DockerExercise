@@ -2,8 +2,11 @@ package com.dockerproject.redisdemo.service;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.mail.javamail.JavaMailSender;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.dockerproject.redisdemo.repo")
@@ -11,8 +14,17 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class AppConfig {
 
 	@Bean
+	@Lazy
+	@DependsOn("mailSender")
+	public EmailService emailService(JavaMailSender mailSender) {
+	    return new EmailService(mailSender);
+	}
+	
+	
+
+	@Bean
 	public OtpService otpService() {
-		return new OtpService();
+	return new OtpService();
 	}
 
 }

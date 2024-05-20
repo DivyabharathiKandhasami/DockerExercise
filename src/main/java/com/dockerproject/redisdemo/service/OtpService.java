@@ -138,7 +138,7 @@ public class OtpService {
 
 		if (otpEntity.getOtp().equals(otp)) {
 			otpRepo.delete(otpEntity);
-			return " Your otp is verified 🎊🎊";
+			return "Your otp is verified 🎊🎊";
 		} else {
 			return otp;
 		}
