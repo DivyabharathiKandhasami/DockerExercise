@@ -16,15 +16,13 @@ public class AppConfig {
 	@Bean
 	@Lazy
 	@DependsOn("mailSender")
-	public EmailService emailService(JavaMailSender mailSender) {
-	    return new EmailService(mailSender);
+	public EmailService emailService(JavaMailSender mailsender) {
+		return new EmailService(mailsender);
 	}
-	
-	
 
 	@Bean
 	public OtpService otpService() {
-	return new OtpService();
+		return new OtpService();
 	}
 
 }
