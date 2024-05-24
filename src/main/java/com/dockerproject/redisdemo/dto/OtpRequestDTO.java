@@ -14,13 +14,13 @@ import lombok.Data;
 @Repository
 public class OtpRequestDTO {
 
-	private String emailId;
-	private String otp;
-	private String userName;
+ private String emailId;
+ private String otp;
+ private String userName;
 
 	// Getters and setters
 
-	public String getEmailId(){
+	public String getEmailId() {
 		return emailId;
 	}
 
@@ -33,7 +33,7 @@ public class OtpRequestDTO {
 	}
 
 	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+		this.emailId = "divyakandhasami@gmail.com";
 	}
 
 	public String getUserName() {
@@ -60,7 +60,7 @@ public class OtpRequestDTO {
 		this.otp = otp;
 	}
 
-	@Autowired 
+	@Autowired
 	private OtpRepo otpRepo;
 
 	public List<OtpEntity> findAll() {

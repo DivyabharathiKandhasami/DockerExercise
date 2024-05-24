@@ -11,7 +11,7 @@ public class MyComponent {
 	private final ValueOperations<String, Object> valueOperations;
 
 	@Autowired
-	public MyComponent(RedisTemplate <String, Object> redisTemplate) {
+	public MyComponent(RedisTemplate<String, Object> redisTemplate) {
 		this.redisTemplate = redisTemplate;
 		this.valueOperations = redisTemplate.opsForValue();
 	}

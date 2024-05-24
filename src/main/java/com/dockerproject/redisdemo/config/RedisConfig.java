@@ -20,7 +20,7 @@ public class RedisConfig {
 		redisStandaloneConfiguration.setHostName("172.17.0.3");
 		redisStandaloneConfiguration.setPort(6379);
 		// redisStandaloneConfiguration.setPassword("password");
-		// //redisStandaloneConfiguration
+		// redisStandaloneConfiguration
 		JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
 		return jedisConnectionFactory;
 	}

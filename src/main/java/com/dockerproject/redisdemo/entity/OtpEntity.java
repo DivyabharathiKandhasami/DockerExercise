@@ -31,9 +31,9 @@ public class OtpEntity {
 	@Column(name = "otp_pin")
 	private String otp;
 
-	public OtpEntity(String emailId2, String otp2) {
+	public OtpEntity(String emailId2, String otp) {
 		this.emailId = emailId2;
-		this.otp = otp2;
+		this.otp = otp;
 	}
 
 	public Long getId() {
@@ -79,11 +79,11 @@ public class OtpEntity {
 	}
 
 	public boolean isExpired() {
-		return  false;
+		return false;
 
 	}
 
 	public long getTimestamp() {
-	    return System.currentTimeMillis();
+		return System.currentTimeMillis();
 	}
 }

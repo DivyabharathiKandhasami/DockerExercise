@@ -11,7 +11,7 @@ import com.dockerproject.redisdemo.entity.OtpEntity;
 @Repository
 public interface OtpRepo extends JpaRepository<OtpEntity, Long> {
 
-	Optional<OtpEntity> findByEmailId(String emailId);
+	Optional <OtpEntity> findByEmailId(String emailId);
 
 	OtpEntity save(OtpRequestDTO otpRequestDTO);
 
